@@ -2,19 +2,41 @@ using Newtonsoft.Json.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class SceneManager : MonoBehaviour
 {
     public float timeScale = 1f;
     private float elapsedTime = 0;
 
+    public float Orbit_width;
+
+    public List<Camera> cameras;
+    private int camera_num;
+
+    public List<Planet> attractors;
+
+    public bool real_size;
+
     // Start is called before the first frame update
     void Start()
     {
+        for (int i = 0; i < cameras.Count; i++)
+        {
+            if (i <= 0) 
+            {
+                cameras[0].gameObject.SetActive(true);
+            }
+            else
+                cameras[i].gameObject.SetActive(false);
+        }
         
+
+
     }
 
     // Update is called once per frame
+    [System.Obsolete]
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Equals))
@@ -27,14 +49,51 @@ public class SceneManager : MonoBehaviour
             timeScale *= 0.1f;
         }
 
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            SwitchCameras();
+        }
+
+        if (real_size)
+        {
+            foreach (Planet body in attractors)
+            {
+                body.transform.localScale = body.realSize;
+                //body.lineRenderer.SetWidth(0.0005f, 0.0005f);
+            }
+        }
+        else
+        {
+            foreach (Planet body in attractors)
+            {
+                body.transform.localScale = body.size_Simulation;
+                //body.lineRenderer.SetWidth(0.05f, 0.05f);
+            }
+        }
+
+
+        
+
         elapsedTime += Time.deltaTime * timeScale;
         Contador(elapsedTime);
     }
 
-    private void FixedUpdate()
+    void SwitchCameras()
     {
-        
+        for(int i = 0; i < cameras.Count; i++)
+        {
+            if (cameras[i].gameObject.activeSelf && i!=0)
+            {
+                cameras[i].gameObject.SetActive(false);
+                cameras[i - 1].gameObject.SetActive(true);
+            }
+            else if(cameras[i].gameObject.activeSelf && i == 0)
+            {
+                cameras[i].gameObject.SetActive(false);
+                cameras[cameras.Count - 1].gameObject.SetActive(true);
+            }
 
+        }
         
     }
 

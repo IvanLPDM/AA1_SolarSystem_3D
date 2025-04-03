@@ -6,6 +6,9 @@ using UnityEngine.SocialPlatforms;
 
 public class Planet : MonoBehaviour
 {
+    public Vector3 realSize;
+    public Vector3 size_Simulation;
+
     public float mass; 
     public Vector3 initialSpeed; 
     public Vector3 velocity;
@@ -14,6 +17,7 @@ public class Planet : MonoBehaviour
 
     const float G = 6.67430e-11f; 
     const float Gastronomic = 39.478f;
+
 
 
     public SceneManager sceneManager;
@@ -30,8 +34,10 @@ public class Planet : MonoBehaviour
         // Inicializar la velocidad con la velocidad inicial
         velocity = initialSpeed;
 
+        size_Simulation = transform.localScale;
+
         lineRenderer.SetColors(orbit_Color, orbit_Color);
-        lineRenderer.SetWidth(0.05f, 0.05f);
+        lineRenderer.SetWidth(sceneManager.Orbit_width, sceneManager.Orbit_width);
         lineRenderer.positionCount = 0;
     }
 
