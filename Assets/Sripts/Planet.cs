@@ -41,30 +41,6 @@ public class Planet : MonoBehaviour
         lineRenderer.positionCount = 0;
     }
 
-    
-
-    // Aplicar la gravedad con el método de Euler
-    //public void ApplyGravityEuler(float deltaTime)
-    //{
-    //    // Dirección de la fuerza gravitatoria 
-    //    Vector3 direction = sun.transform.position - transform.position;
-
-    //    // Distancia entre el planeta y el sol
-    //    float distance = direction.magnitude;
-
-    //    // Calcular la magnitud de la fuerza gravitatoria
-    //    float forceMagnitude = G * (sun.mass * mass) / (distance * distance);
-
-    //    // Normalizar la dirección para obtener la fuerza en vector
-    //    Vector3 force = direction.normalized * forceMagnitude;
-
-    //    // Aceleración (F = ma → a = F/m)
-    //    Vector3 acceleration = force / mass;
-
-    //    // Actualizar la velocidad usando el método de Euler
-    //    velocity += acceleration * deltaTime;
-    //}
-
 
     Vector3 GravitationalAcceleration(Vector3 position)
     {
